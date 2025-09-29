@@ -1,12 +1,12 @@
 # Monitering application 
-import os
-import threading
+import time
 import monitoring
+import utils
 
 
 # Shows the starting menu
 def starting_menu():
-    clear_console()
+    utils.clear_console()
     print(('Welcome to the program, pick an option below!\n'
            '1 - to start monitoring your computers usage.\n'
            '2 - to show a list what you are monitoring.\n'
@@ -14,12 +14,11 @@ def starting_menu():
            '4 - to show all current alarms.\n'
            '5 - to start monitoring mode.\n'))
 
-# Clears the console for a better viewing exerience
-def clear_console():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+def show_monitoring_status():
+    utils.clear_console()
+    status = monitoring.monitor.get_status()
+    print(status)
+    input("\nPress enter to go back.")
 
 def main():
     MENU_START = True
@@ -27,17 +26,20 @@ def main():
         starting_menu()
         user_selection = input("Please pick an option from 1-5 above. ")
         if user_selection == '1':
-            monitoring.monitoring(start=True)
+            monitoring.monitor.start()
         elif user_selection == '2':
-            monitoring.monitoring()
+            show_monitoring_status()
         elif user_selection == '3':
-            print()
+            pass
         elif user_selection == '4':
-            print()
+            pass
         elif user_selection == '5':
-            print()
+            pass
         else:
-            print()
+            print("Choice not vaild. Please choose from a menu of 1-5", end='')
+            for x in range(4):
+                print('.', end='', flush=True)
+                time.sleep(1)
     
 
 
