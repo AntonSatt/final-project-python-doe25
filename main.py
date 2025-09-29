@@ -1,6 +1,8 @@
 # Monitering application 
 import os
+import threading
 import monitoring
+
 
 # Shows the starting menu
 def starting_menu():
@@ -25,9 +27,9 @@ def main():
         starting_menu()
         user_selection = input("Please pick an option from 1-5 above. ")
         if user_selection == '1':
-            monitoring.monitoring()
+            monitoring.monitoring(start=True)
         elif user_selection == '2':
-            print()
+            monitoring.monitoring()
         elif user_selection == '3':
             print()
         elif user_selection == '4':
