@@ -2,6 +2,7 @@
 import time
 import monitoring
 import utils
+import alarm
 
 
 # Shows the starting menu
@@ -18,7 +19,7 @@ def show_monitoring_status():
     utils.clear_console()
     status = monitoring.monitor.get_status()
     print(status)
-    input("\nPress enter to go back.")
+    utils.press_any_key()
 
 def main():
     MENU_START = True
@@ -30,7 +31,7 @@ def main():
         elif user_selection == '2':
             show_monitoring_status()
         elif user_selection == '3':
-            pass
+            alarm.alarm.alarm_menu()
         elif user_selection == '4':
             pass
         elif user_selection == '5':
