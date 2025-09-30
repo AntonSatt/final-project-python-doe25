@@ -12,8 +12,8 @@ def clear_console():
         os.system('clear')
 
 # Short timer
-def short_timer():
-    for i in range(3):
+def short_timer(): 
+    for i in range(1): # Change value to change timer speed
         print('.', end='',flush=True)
         time.sleep(1)
 

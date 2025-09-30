@@ -33,14 +33,12 @@ def main():
         elif user_selection == '3':
             alarm.alarm.alarm_menu()
         elif user_selection == '4':
-            pass
+            alarm.alarm.show_alarms()
         elif user_selection == '5':
             pass
         else:
             print("Choice not vaild. Please choose from a menu of 1-5", end='')
-            for x in range(4):
-                print('.', end='', flush=True)
-                time.sleep(1)
+            utils.short_timer()
     
 
 

@@ -2,9 +2,9 @@ import utils
 
 class SystemAlarm:
     def __init__(self): #variables we need to change
-        self.cpu_alarm_value = None
-        self.mem_alarm_value = None
-        self.disk_alarm_value = None
+        self.cpu_alarms = [] # We need lists to be able to store multiple alarms
+        self.mem_alarms = []
+        self.disk_alarms = []
         self.user_choice = None
 
     def alarm_menu_text(self):
@@ -22,32 +22,47 @@ class SystemAlarm:
             utils.clear_console()
             self.alarm_menu_text()
             if self.user_choice == '1':
-                self.cpu_alarm_value = self.set_alarm(self.cpu_alarm_value)
+                self.add_alarm_to_list(self.cpu_alarms)
             elif self.user_choice == '2':
-                self.mem_alarm_value = self.set_alarm(self.mem_alarm_value)
+                self.add_alarm_to_list(self.mem_alarms)
             elif self.user_choice == '3':
-                self.disk_alarm_value = self.set_alarm(self.disk_alarm_value)
+                self.add_alarm_to_list(self.disk_alarms)
             elif self.user_choice == '4':
                 print("Returning to main menu.")
                 utils.short_timer()
                 break
             else:
+                print("Invalid choice. Try again.")
+                utils.short_timer()
                 continue
         return
     
-    def set_alarm(self, alarm_value):
-        while(True):
+    def add_alarm_to_list(self, alarm_list):
+        new_value = self.set_alarm()
+        alarm_list.append(new_value)
+        print(f"Alarm added to list: {new_value}%.")
+        utils.short_timer()
+
+    def set_alarm(self):
+        while True:
             try:
                 alarm_value = int(input("Pick a number from 0-100: "))
                 if not 0 <= alarm_value <= 100:
                     print("Please enter a number between 0 and 100.")
                     continue
-                break
+                return alarm_value
             except ValueError:
                 print("Invalid input. Please enter a number from 0-100.")
-        print(f"Alarm set to {alarm_value}%.")
+
+    def show_alarms(self): # If list is empty the if statement makes sure it doesn't print
+        if self.cpu_alarms: # An empty list in Python is counted as False
+            print(self.cpu_alarms) 
+        if self.mem_alarms:
+            print(self.mem_alarms)
+        if self.disk_alarms:
+            print(self.disk_alarms) # Still need to fix how the list looks but gotta run for now.
         utils.short_timer()
-        return alarm_value
+        return
     
 # Making alarm global 
 alarm = SystemAlarm()
