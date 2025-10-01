@@ -15,3 +15,8 @@
 - Jag är också ganska nöjd att jag fick till en bra funktion som fungerar för alla larm även om det är CPU, RAM, hårddisk som ska kollas. Så man inte behöver 3 funktioner för varje typ.
 - Hoppsan märkte att man skulle kunna flera av samma larm. Så behöver bygga om alarm.py lite, tror det är smart att köra listor för en variable för alarm. Så vi kan ha flera alarm.
 - Får jobba vidare imorgon med att skriva ut alarm-listan klart. 
+
+### 1st of October 2025
+- Lärde mig använda tree i terminalen för att få fram kodstrukturen, exempel: <br>
+```tree -L 2  -I venv > repo_structure.md``` <br>
+-L 2 är att den inte går djupare än 2 "layers", -I är att ignorera en directory, > är för att spara resultatet till en fil. 
