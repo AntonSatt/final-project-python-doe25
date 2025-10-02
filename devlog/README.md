@@ -20,3 +20,6 @@
 - Lärde mig använda tree i terminalen för att få fram kodstrukturen, exempel: <br>
 ```tree -L 2  -I venv > repo_structure.md``` <br>
 -L 2 är att den inte går djupare än 2 "layers", -I är att ignorera en directory, > är för att spara resultatet till en fil. 
+
+### 2nd of October 2025
+- Försöker göra klart projektet, men får inte riktigt till 5:an (Övervakningsystemet), får köra vidare lite senare. 

@@ -3,6 +3,7 @@ import psutil
 import time
 import threading
 import utils
+import alarm
 
 class SystemMonitor:
     
@@ -51,6 +52,24 @@ class SystemMonitor:
         while not self.stop_event.is_set():
             self._update_data()
             time.sleep(10)
+
+    def _check_alarms(self):
+        # Checking CPU alarms
+        alarm_check_loop = True
+        while alarm_check_loop:
+            for alarm_warning in alarm.alarm.cpu_alarms:
+                if self.cpu_usage >= alarm_warning:
+                    print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+            
+            for alarm_warning in alarm.alarm.mem_alarms:
+                if self.memory_percent >= alarm_warning:
+                    print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
+            
+            for alarm_warning in alarm.alarm.disk_alarms:
+                if self.storage_percent >= alarm_warning:
+                    print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
+            
+        # Thinking about how to wrap this up. Might need to use threading again
 
     def start(self):
         if self.is_running:

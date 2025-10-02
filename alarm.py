@@ -56,12 +56,15 @@ class SystemAlarm:
 
     def show_alarms(self): # If list is empty the if statement makes sure it doesn't print
         if self.cpu_alarms: # An empty list in Python is counted as False
-            print(self.cpu_alarms) 
+            for alarm in self.cpu_alarms:
+                print(f"CPU-larm {alarm}%")
         if self.mem_alarms:
-            print(self.mem_alarms)
+            for alarm in self.mem_alarms:
+                print(f"Minneslarm {alarm}%")
         if self.disk_alarms:
-            print(self.disk_alarms) # Still need to fix how the list looks but gotta run for now.
-        utils.short_timer()
+            for alarm in self.disk_alarms:
+                print(f"Disklarm {alarm}%")
+        utils.press_any_key()
         return
     
 # Making alarm global 
