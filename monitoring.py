@@ -76,7 +76,7 @@ class SystemMonitor:
                     if self.storage_percent >= alarm_warning:
                         print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
 
-                time.sleep(9) # Why I picked 9sec and 1sec to wait? Because data is only updated every 10s anyway.      
+                utils.wait_for_any_key_or_timeout(9)
             
             
 

@@ -1,5 +1,4 @@
 # Monitering application 
-import time
 import monitoring
 import utils
 import alarm
