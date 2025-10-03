@@ -35,7 +35,7 @@ def main():
         elif user_selection == '4':
             alarm.alarm.show_alarms()
         elif user_selection == '5':
-            pass
+            monitoring.monitor._check_alarms()
         else:
             print("Choice not vaild. Please choose from a menu of 1-5", end='')
             utils.short_timer()

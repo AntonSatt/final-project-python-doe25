@@ -57,19 +57,28 @@ class SystemMonitor:
         # Checking CPU alarms
         alarm_check_loop = True
         while alarm_check_loop:
-            for alarm_warning in alarm.alarm.cpu_alarms:
-                if self.cpu_usage >= alarm_warning:
-                    print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+
+            print("Monitoring mode activated, press any key to go back to menu.")
+            time.sleep(1)
+
+            for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
+                
+                # Checks the lists of alarms if any is triggered by the current data
+                for alarm_warning in alarm.alarm.cpu_alarms:
+                    if self.cpu_usage >= alarm_warning:
+                        print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+                
+                for alarm_warning in alarm.alarm.mem_alarms:
+                    if self.memory_percent >= alarm_warning:
+                        print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
+                
+                for alarm_warning in alarm.alarm.disk_alarms:
+                    if self.storage_percent >= alarm_warning:
+                        print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
+
+                time.sleep(9) # Why I picked 9sec and 1sec to wait? Because data is only updated every 10s anyway.      
             
-            for alarm_warning in alarm.alarm.mem_alarms:
-                if self.memory_percent >= alarm_warning:
-                    print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
             
-            for alarm_warning in alarm.alarm.disk_alarms:
-                if self.storage_percent >= alarm_warning:
-                    print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
-            
-        # Thinking about how to wrap this up. Might need to use threading again
 
     def start(self):
         if self.is_running:
