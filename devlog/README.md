@@ -28,3 +28,8 @@
 - Känner att jag är klar med projektet för G iaf. Nu är det bara att jobba och testa och fixa det för VG. 3 veckor från idag till uppgiften ska lämnas in så det känns bra. 
 - Jag Kom på att jag inte behöver treading eller liknande till sista uppgiften då data ändå bara uppdateras var 10 sekund. Så kör en enkel while loop var 10:e sekund och kollar om några larm går. 
 Största problemet jag hade var att hitta en lösning hur man får så att man trycka "any key" när man vill så går man tillbaka till huvudmenyn. Får läsa på lite mer om det, hittade en lösning när jag googlade och körde AI. Men förstår inte riktigt. Känns ganska advancerad lösning. Tänk att det ska vara så komplicerat att få till en sån sak som låter enkel. 
+
+### 5th of October 2025
+- Idag fixade jag loggar, vilket var väldigt lätt. Import logging och så sätter man in hur och var man vill spara sin log-fil och i vilket sorts format den ska skriva ut, datum och sånt. Sedan var det bara att sätta in en loggning under varje print-text man ville att den skulle logga. Gick riktigt smidigt. 
+- Gjorde också "Ta bort larm" vilket var mycket svårare än jag trodde. Satt ganska länge och tänkte hur man skulle göra på bästa sätt. Problemet är att det är 3 listor man har av olika larm. Så hur ska man skriva ut allt i en lista för att sedan låta användaren skriva in den siffra han vill ha. Kollade runt lite och förstod att ett bra sätt är att slå ihop de 3 listorna till en temperär lista för alla larm. Sedan printar man ut den med hjälpa av ```enumerate```som gör att man kan lägga till en siffra för talen innan. Sedan ser det bra ut för användaren och de kan välja vad de vill ta bort. 
+- Att ta bort var ganska komplicerat, blir att läsa på lite mer om detta. 

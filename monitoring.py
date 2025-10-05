@@ -1,9 +1,12 @@
 # This program runs the monitoring
-import psutil
+import logging
 import time
 import threading
 import utils
 import alarm
+import psutil
+
+logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 class SystemMonitor:
     
@@ -56,6 +59,7 @@ class SystemMonitor:
     def _check_alarms(self):
         # Checking CPU alarms
         alarm_check_loop = True
+        logging.info("Monitoring mode activated.")
         while alarm_check_loop:
 
             print("Monitoring mode activated, press any key to go back to menu.")
@@ -67,14 +71,18 @@ class SystemMonitor:
                 for alarm_warning in alarm.alarm.cpu_alarms:
                     if self.cpu_usage >= alarm_warning:
                         print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+                        # Logging alarm triggers
                 
                 for alarm_warning in alarm.alarm.mem_alarms:
                     if self.memory_percent >= alarm_warning:
                         print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
-                
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
+
                 for alarm_warning in alarm.alarm.disk_alarms:
                     if self.storage_percent >= alarm_warning:
                         print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
 
                 utils.wait_for_any_key_or_timeout(9)
             
