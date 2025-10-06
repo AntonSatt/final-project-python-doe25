@@ -9,7 +9,6 @@ import alarm
 # Shows the starting menu
 def starting_menu():
     utils.clear_console()
-    logging.info("Starting the program.") # Logging the start
     print(('Welcome to the program, pick an option below!\n'
            '1 - to start monitoring your computers usage.\n'
            '2 - to show a list what you are monitoring.\n'
@@ -26,6 +25,7 @@ def show_monitoring_status():
     utils.press_any_key()
 
 def main():
+    logging.info("Starting the program.") # Logging the start
     while True:
         starting_menu()
         user_selection = input("Please pick an option from 1-6 above. ")
