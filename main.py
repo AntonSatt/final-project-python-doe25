@@ -5,6 +5,7 @@ from monitoring import logging
 import utils
 import alarm
 
+# Lägg till "Docstring"
 
 # Shows the starting menu
 def starting_menu():
