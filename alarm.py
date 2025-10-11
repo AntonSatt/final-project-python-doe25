@@ -8,10 +8,10 @@ from main import logging
 
 # Filled list for testing, removed when pushed to production.
 user_alarms = [
-    {"type": "CPU-alarm", "threshold": 5},
+    {"type": "CPU-alarm", "threshold": 2},
     {"type": "Memory-alarm", "threshold": 10},
     {"type": "Storage-alarm", "threshold": 10},
-    {"type": "CPU-alarm", "threshold": 12}
+    {"type": "CPU-alarm", "threshold": 25}
 ]
 
 def create_cpu_alarm():
@@ -72,10 +72,13 @@ def alarm_start():
             utils.timer_short()
             continue
 
+def sort_alarms():
+    sorted_alarms = sorted(user_alarms, key=lambda alarm: alarm["type"])
+    return sorted_alarms
+
 def show_alarms():
     utils.clear_console()
-    sorted_alarms = sorted(user_alarms, key=lambda alarm: alarm["type"])
-    for index, alarm in enumerate(sorted_alarms):
+    for index, alarm in enumerate(sort_alarms()):
         user_number = index + 1
 
         alarm_type = alarm["type"]

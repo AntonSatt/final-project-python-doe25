@@ -3,6 +3,10 @@ Monitoring program that keeps track of cpu, memory and storage data.
 '''
 import utils
 import psutil
+from main import logging
+import time
+import alarm
+import keyboard
 
 class Monitoring:
     def __init__(self):
@@ -78,4 +82,25 @@ def show_monitoring_list():
           f"Diskanvändning: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB av {round(system.storage_total_in_GB)} GB använt)") 
     utils.press_any_key()
     return
-    
+
+def monitoring_mode():
+     # Checking CPU alarms
+        logging.info("Monitoring mode activated.")
+        while True:
+            
+
+            print("Monitoring mode activated, press any key to go back to menu.")
+            time.sleep(1)
+
+            for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
+                system.update_data()
+                
+                # Checks the lists of alarms if any is triggered by the current data
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "CPU-alarm":
+                        if alarm_warning["threshold"] <= system.cpu_usage:
+                            print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+
+                utils.wait_for_any_key_or_timeout(5)
+                

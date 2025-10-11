@@ -33,7 +33,7 @@ def main():
         elif user_choice == '4':
             alarm.show_alarms()
         elif user_choice == '5':
-            pass
+            monitoring.monitoring_mode()
         elif user_choice == '6':
             utils.clear_console()
             logging.info("Closing the program")
