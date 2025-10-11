@@ -1,6 +1,3 @@
-import utils
-
-
 class SystemAlarm:
     def __init__(self): #variables we need to change
         self.cpu_alarms = [] # We need lists to be able to store multiple alarms

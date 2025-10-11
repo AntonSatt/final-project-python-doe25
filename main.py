@@ -4,7 +4,6 @@ import monitoring
 from monitoring import logging
 import utils
 import alarm
-import time
 
 
 # Shows the starting menu

@@ -2,8 +2,6 @@
 import logging
 import time
 import threading
-import utils
-import alarm
 import psutil
 
 logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
