@@ -4,9 +4,10 @@ It also features alarms and a monitoring mode.
 '''
 import logging
 import sys
-import time
 import utils
 import monitoring
+
+logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 def starting_menu():
     utils.clear_console()
@@ -19,6 +20,7 @@ def starting_menu():
 
 
 def main():
+    logging.info("Starting the program.")
     while True:
         starting_menu()
         user_choice = input("Pick from the list above: ")
@@ -33,6 +35,7 @@ def main():
         elif user_choice == '5':
             pass
         elif user_choice == '6':
+            logging.info("Closing the program")
             sys.exit()
         else:
             print("Not valid option.")
