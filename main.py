@@ -6,6 +6,7 @@ import logging
 import sys
 import utils
 import monitoring
+import alarm
 
 logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
@@ -18,7 +19,6 @@ def starting_menu():
           "5 - Monitoring mode\n"
           "6 - Quit the program")
 
-
 def main():
     logging.info("Starting the program.")
     while True:
@@ -29,7 +29,7 @@ def main():
         elif user_choice == '2':
             monitoring.show_monitoring_list()
         elif user_choice == '3':
-            pass
+            alarm.alarm_start()
         elif user_choice == '4':
             pass
         elif user_choice == '5':
