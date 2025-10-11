@@ -100,7 +100,7 @@ def monitoring_mode():
                     if alarm_warning["type"] == "CPU-alarm":
                         if alarm_warning["threshold"] <= system.cpu_usage:
                             print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
 
                 utils.wait_for_any_key_or_timeout(5)
                 

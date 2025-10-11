@@ -20,7 +20,7 @@ def starting_menu():
           "6 - Quit the program")
 
 def main():
-    logging.info("Starting the program.")
+    logging.info("Booting start-menu!")
     while True:
         starting_menu()
         user_choice = input("Pick from the list above: ")
