@@ -6,7 +6,6 @@ import psutil
 from main import logging
 import time
 import alarm
-import keyboard
 
 class Monitoring:
     def __init__(self):
@@ -88,7 +87,6 @@ def monitoring_mode():
         logging.info("Monitoring mode activated.")
         while True:
             
-
             print("Monitoring mode activated, press any key to go back to menu.")
             time.sleep(1)
 
