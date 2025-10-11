@@ -90,9 +90,7 @@ class SystemMonitor:
 
     def start(self):
         if self.is_running:
-            print("Already running...")
-            utils.short_timer()
-            return
+            return False
         
         #Just fancy text to let the user know that the monitoring has started. 
         matrix_text = "Starting up monitoring..."
@@ -123,6 +121,17 @@ class SystemMonitor:
                f"Diskanvändning: {self.storage_percent}% ({round(self.storage_used_in_GB)} GB av {round(self.storage_total_in_GB)} GB använt)")
 
 
+# Rebuilding program to get all the print() out of the SystemMonitor class
+
+def start():
+    system = SystemMonitor()
+    value = system.start()
+    if value:
+        print("Already running...")
+        utils.short_timer()
     
+
+
+
 # To be able to call easy globaly
 monitor = SystemMonitor()
