@@ -17,6 +17,8 @@ def starting_menu():
            '4 - to show all current alarms.\n'
            '5 - to start monitoring mode.\n'
            '6 - to exit the program.\n'))
+    
+pass
 
 # Checks if monitoring is started in monitoring.py, if started returns formated data. 
 def show_monitoring_status():
