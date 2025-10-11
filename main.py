@@ -35,6 +35,7 @@ def main():
         elif user_choice == '5':
             pass
         elif user_choice == '6':
+            utils.clear_console()
             logging.info("Closing the program")
             sys.exit()
         else:

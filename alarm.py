@@ -4,6 +4,7 @@ Features like adding alarms and removing alarms,
 and listing the current alarms.
 '''
 import utils
+from main import logging
 
 # Filled list for testing, removed when pushed to production.
 user_alarms = [
@@ -18,8 +19,9 @@ def create_cpu_alarm():
     new_alarm = {
         "type": "CPU-alarm",
         "threshold": threshold
-    }
+        }
     user_alarms.append(new_alarm)
+    logging.info(f"Added CPU-alarm {threshold}%")
 
 def create_memory_alarm():
     threshold = int(input("Please put in number: "))
@@ -28,6 +30,7 @@ def create_memory_alarm():
         "threshold": threshold
     }
     user_alarms.append(new_alarm)
+    logging.info(f"Memory CPU-alarm {threshold}%")
     
 def create_storage_alarm():
     threshold = int(input("Please put in number: "))
@@ -36,6 +39,7 @@ def create_storage_alarm():
         "threshold": threshold
     }
     user_alarms.append(new_alarm)
+    logging.info(f"Added Storage-alarm {threshold}%")
 
 def alarm_menu():
     utils.clear_console()
