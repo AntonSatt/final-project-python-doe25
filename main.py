@@ -31,7 +31,7 @@ def main():
         elif user_choice == '3':
             alarm.alarm_start()
         elif user_choice == '4':
-            pass
+            alarm.show_alarms()
         elif user_choice == '5':
             pass
         elif user_choice == '6':
