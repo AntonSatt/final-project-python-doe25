@@ -33,3 +33,9 @@ Största problemet jag hade var att hitta en lösning hur man får så att man t
 - Idag fixade jag loggar, vilket var väldigt lätt. Import logging och så sätter man in hur och var man vill spara sin log-fil och i vilket sorts format den ska skriva ut, datum och sånt. Sedan var det bara att sätta in en loggning under varje print-text man ville att den skulle logga. Gick riktigt smidigt. 
 - Gjorde också "Ta bort larm" vilket var mycket svårare än jag trodde. Satt ganska länge och tänkte hur man skulle göra på bästa sätt. Problemet är att det är 3 listor man har av olika larm. Så hur ska man skriva ut allt i en lista för att sedan låta användaren skriva in den siffra han vill ha. Kollade runt lite och förstod att ett bra sätt är att slå ihop de 3 listorna till en temperär lista för alla larm. Sedan printar man ut den med hjälpa av ```enumerate```som gör att man kan lägga till en siffra för talen innan. Sedan ser det bra ut för användaren och de kan välja vad de vill ta bort. 
 - Att ta bort var ganska komplicerat, blir att läsa på lite mer om detta. 
+
+### 11th of October 2025
+- Lärde mig att man inte ska använda sig av funktioner som print() i classer, så nu har jag spenderat lång tid att bygga om mitt program från grunden och ta bort att print() och loggning jag hade i metoder förut. Det ser mycket bättre ut och gick ändå ganska snabbt.
+- Är nästan tillbaka där jag var förut, men nu känns det bättre. 
+- Jag tog också bort threading då jag inte riktigt förstår det ännu och så behövdes det inte i koden. 
+- Ska försöka göra klart upp till VG imorgon. Sedan efter det är det bara presentationen och en rapport kvar. 
