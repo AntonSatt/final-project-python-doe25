@@ -39,3 +39,10 @@ Största problemet jag hade var att hitta en lösning hur man får så att man t
 - Är nästan tillbaka där jag var förut, men nu känns det bättre. 
 - Jag tog också bort threading då jag inte riktigt förstår det ännu och så behövdes det inte i koden. 
 - Ska försöka göra klart upp till VG imorgon. Sedan efter det är det bara presentationen och en rapport kvar. 
+
+### 12th of October 2025
+- Did a rework of the whole program, mostly because I wanted to get print() and logging functions out of the classes. Because I didn't know that was bad practice. 
+
+- Also removed threading. 
+
+- As I rebuild the program, I reworked quite a lot of stuff that just is better design I feel. Like using a dictionary instead of lists for the alarms. Also removed the alarm class as I didn't feel like I needed it. 
