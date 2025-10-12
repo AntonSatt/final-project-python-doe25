@@ -11,7 +11,9 @@ user_alarms = [
     {"type": "CPU-alarm", "threshold": 2},
     {"type": "Memory-alarm", "threshold": 10},
     {"type": "Storage-alarm", "threshold": 10},
-    {"type": "CPU-alarm", "threshold": 25}
+    {"type": "CPU-alarm", "threshold": 25},
+    {"type": "Memory-alarm", "threshold": 5},
+    {"type": "Storage-alarm", "threshold": 50},
 ]
 
 def create_alarm(type_of_alarm):
