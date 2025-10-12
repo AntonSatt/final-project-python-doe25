@@ -1,24 +1,22 @@
-# Functions I use a lot
+'''
+Small functions that are easlily called from here to do something.
+'''
 import os
 import time
 import sys
 import main
 
-
-# Clears the console for a better viewing experience
 def clear_console():
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
 
-# Short timer
-def short_timer(): 
+def timer_short(): 
     for i in range(1): # Change value to change timer speed
         print('.', end='',flush=True)
         time.sleep(1)
 
-# To be able to press any key to continue on depending on what OS you run.
 def press_any_key(prompt='Press any key to continue...'):
     if os.name == 'nt': # Windows
         import msvcrt
@@ -49,7 +47,7 @@ def wait_for_any_key_or_timeout(seconds):
                 key = msvcrt.getch()  
                 print("\nReturning to menu!")
                 time.sleep(1)
-                main.main()
+                main.starting_menu_user_input()
             time.sleep(0.1)  
     
     else:  # Unix/Linux/macOS
@@ -67,6 +65,6 @@ def wait_for_any_key_or_timeout(seconds):
                     print("\nReturning to menu!")
                     time.sleep(1)
                     termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal
-                    main.main()
+                    main.starting_menu_user_input()
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal

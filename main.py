@@ -1,8 +1,11 @@
-# Monitering application 
+'''
+This is a monitoring program for CPU, Memory and Storage data.
+It also features alarms and a monitoring mode.
+'''
+import logging
 import sys
-import monitoring
-from monitoring import logging
 import utils
+import monitoring
 import alarm
 
 # Lägg till "Docstring"
@@ -18,39 +21,38 @@ def starting_menu():
            '5 - to start monitoring mode.\n'
            '6 - to exit the program.\n'))
 
-# Checks if monitoring is started in monitoring.py, if started returns formated data. 
-def show_monitoring_status():
+def starting_menu():
     utils.clear_console()
-    status = monitoring.monitor.get_status()
-    print(status)
-    utils.press_any_key()
+    print("1 - Start monitoring\n"
+          "2 - List monitoring\n"
+          "3 - Create or remove alarms\n"
+          "4 - Show alarms\n"
+          "5 - Monitoring mode\n"
+          "6 - Quit the program")
 
 def main():
     logging.info("Starting the program.") # Logging the start
     while True:
         starting_menu()
-        user_selection = input("Please pick an option from 1-6 above. ")
-        if user_selection == '1':
-            monitoring.monitor.start()
-        elif user_selection == '2':
-            show_monitoring_status()
-        elif user_selection == '3':
-            alarm.alarm.alarm_menu()
-        elif user_selection == '4':
-            alarm.alarm.show_alarms()
-        elif user_selection == '5':
-            monitoring.monitor._check_alarms()
-        elif user_selection == '6':
-            logging.info("Closing the program.") # Logging the exit
-            print("Closing the program.")
-            utils.short_timer()
+        user_choice = input("Pick from the list above: ")
+        if user_choice == '1':
+            monitoring.start_monitoring()
+        elif user_choice == '2':
+            monitoring.show_monitoring_list()
+        elif user_choice == '3':
+            alarm.alarm_start()
+        elif user_choice == '4':
+            alarm.show_alarms()
+            utils.press_any_key()
+        elif user_choice == '5':
+            monitoring.monitoring_mode()
+        elif user_choice == '6':
+            utils.clear_console()
+            logging.info("Closing the program")
             sys.exit()
         else:
-            print("Choice not vaild. Please choose from a menu of 1-5", end='')
-            utils.short_timer()
-    
+            print("Not valid option.")
+            utils.timer_short()
 
-
-# Runs back to main when script is executed directly
 if __name__ == "__main__":
     main()

@@ -1,28 +1,32 @@
-# This program runs the monitoring
-import logging
-import time
-import threading
+'''
+Monitoring program that keeps track of cpu, memory and storage data.
+'''
 import utils
-import alarm
 import psutil
+from main import logging
+import time
+import alarm
 
-logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
-
-class SystemMonitor:
-    
+class Monitoring:
     def __init__(self):
         self.cpu_usage = 0
         self.memory_percent = 0
-        self.total_memory_in_GB = 0
         self.used_memory_in_GB = 0
+        self.total_memory_in_GB = 0
         self.storage_used_in_GB = 0
         self.storage_total_in_GB = 0
         self.storage_percent = 0
-        self.is_running = False
-        self.stop_event = threading.Event()
-        self.thread = None
 
-    def _update_data(self):
+        self.monitoring_running = False
+    
+    def check_if_monitoring_is_running(self):
+        if self.monitoring_running == False:
+            self.monitoring_running = True
+            return False
+        else:
+            return True
+        
+    def update_data(self):
 
         # To convert to GB from Byte
         GB_FACTOR = 1024**3
@@ -50,79 +54,61 @@ class SystemMonitor:
         storage_total_value = storage.total
         self.storage_total_in_GB = storage_total_value / GB_FACTOR
 
-    # How often the data is gonna update    
-    def _monitoring_loop(self):
-        while not self.stop_event.is_set():
-            self._update_data()
-            time.sleep(10)
+    
+system = Monitoring() 
 
-    def _check_alarms(self):
-        # Checking CPU alarms
-        alarm_check_loop = True
+def start_monitoring():
+    
+    if system.check_if_monitoring_is_running() == True:
+        print("Monitoring already running.")
+        utils.timer_short()
+
+    else:
+        print("Monitoring activated!")
+        utils.timer_short()
+    return
+
+def show_monitoring_list():
+    system.update_data()
+     # Get the current data as a string for printing in main.py
+    if not system.monitoring_running:
+        print("Nothing is being monitored currently.") 
+        utils.timer_short()
+        return
+    utils.clear_console()
+    print(f"CPU-användning: {round(system.cpu_usage)}%\n"
+          f"Minnesanvändning: {system.memory_percent}% ({system.used_memory_in_GB:.1f} GB av {system.total_memory_in_GB:.1f} GB använt)\n"
+          f"Diskanvändning: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB av {round(system.storage_total_in_GB)} GB använt)") 
+    utils.press_any_key()
+    return
+
+def monitoring_mode():
+     # Checking CPU alarms
         logging.info("Monitoring mode activated.")
-        while alarm_check_loop:
-
+        while True:
+            
             print("Monitoring mode activated, press any key to go back to menu.")
             time.sleep(1)
 
             for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
+                system.update_data()
                 
                 # Checks the lists of alarms if any is triggered by the current data
-                for alarm_warning in alarm.alarm.cpu_alarms:
-                    if self.cpu_usage >= alarm_warning:
-                        print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning}%***")
-                        # Logging alarm triggers
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "CPU-alarm":
+                        if alarm_warning["threshold"] <= system.cpu_usage:
+                            print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "Memory-alarm":
+                        if alarm_warning["threshold"] <= system.memory_percent:
+                            print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "Storage-alarm":
+                        if alarm_warning["threshold"] <= system.storage_percent:
+                            print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+
+                utils.wait_for_any_key_or_timeout(5)
                 
-                for alarm_warning in alarm.alarm.mem_alarms:
-                    if self.memory_percent >= alarm_warning:
-                        print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning}%***")
-
-                for alarm_warning in alarm.alarm.disk_alarms:
-                    if self.storage_percent >= alarm_warning:
-                        print(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, DISK USAGE OVER {alarm_warning}%***")
-
-                utils.wait_for_any_key_or_timeout(9)
-            
-            
-
-    def start(self):
-        if self.is_running:
-            print("Already running...")
-            utils.short_timer()
-            return
-        
-        #Just fancy text to let the user know that the monitoring has started. 
-        matrix_text = "Starting up monitoring..."
-        matrix_text_2 = "...monitoring started, going back to main menu in 2 seconds. \n"
-        for x in matrix_text:
-            print(x, end='', flush=True)
-            time.sleep(0.05)
-        utils.short_timer()
-        for x in matrix_text_2:
-            print(x, end='', flush=True)
-            time.sleep(0.05)
-        utils.short_timer()
-
-        # Actually starts the monitoring
-        self.stop_event.clear
-        self.thread = threading.Thread(target=self._monitoring_loop, daemon=True)
-        self.thread.start()
-        print("Thread started!")
-        self.is_running = True
-        return self
-
-    def get_status(self):
-        # Get the current data as a string for printing in main.py
-        if not self.is_running:
-            return "Nothing is being monitored currently."
-        return(f"CPU-användning: {round(self.cpu_usage)}%\n"
-               f"Minnesanvändning: {self.memory_percent}% ({self.used_memory_in_GB:.1f} GB av {self.total_memory_in_GB:.1f} GB använt)\n"
-               f"Diskanvändning: {self.storage_percent}% ({round(self.storage_used_in_GB)} GB av {round(self.storage_total_in_GB)} GB använt)")
-
-
-    
-# To be able to call easy globaly
-monitor = SystemMonitor()
