@@ -76,9 +76,9 @@ def show_monitoring_list():
         utils.timer_short()
         return
     utils.clear_console()
-    print(f"CPU-användning: {round(system.cpu_usage)}%\n"
-          f"Minnesanvändning: {system.memory_percent}% ({system.used_memory_in_GB:.1f} GB av {system.total_memory_in_GB:.1f} GB använt)\n"
-          f"Diskanvändning: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB av {round(system.storage_total_in_GB)} GB använt)") 
+    print(f"CPU-usage: {round(system.cpu_usage)}%\n"
+          f"Memory-usage: {system.memory_percent}% ({system.used_memory_in_GB:.1f} GB of {system.total_memory_in_GB:.1f} GB used)\n"
+          f"Storage-usage: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB of {round(system.storage_total_in_GB)} GB used)") 
     utils.press_any_key()
     return
 
