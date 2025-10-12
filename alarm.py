@@ -14,32 +14,14 @@ user_alarms = [
     {"type": "CPU-alarm", "threshold": 25}
 ]
 
-def create_cpu_alarm():
+def create_alarm(type_of_alarm):
     threshold = int(input("Please put in number: "))
     new_alarm = {
-        "type": "CPU-alarm",
+        "type": type_of_alarm,
         "threshold": threshold
         }
     user_alarms.append(new_alarm)
-    logging.info(f"Added CPU-alarm {threshold}%")
-
-def create_memory_alarm():
-    threshold = int(input("Please put in number: "))
-    new_alarm = {
-        "type": "Memory-alarm",
-        "threshold": threshold
-    }
-    user_alarms.append(new_alarm)
-    logging.info(f"Memory CPU-alarm {threshold}%")
-    
-def create_storage_alarm():
-    threshold = int(input("Please put in number: "))
-    new_alarm = {
-        "type": "Storage-alarm",
-        "threshold": threshold
-    }
-    user_alarms.append(new_alarm)
-    logging.info(f"Added Storage-alarm {threshold}%")
+    logging.info(f"Added {type_of_alarm} {threshold}%")
 
 def alarm_menu():
     utils.clear_console()
@@ -56,11 +38,11 @@ def alarm_start():
     while True:
         user_choice = alarm_menu()
         if user_choice == '1':
-            create_cpu_alarm()
+            create_alarm("CPU-alarm")
         elif user_choice== '2':
-            create_memory_alarm()
+            create_alarm("Memory-alarm")
         elif user_choice== '3':
-            create_storage_alarm()
+            create_alarm("Storage-alarm")
         elif user_choice == '4':
             pass
         elif user_choice == '5':
