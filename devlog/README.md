@@ -46,3 +46,4 @@ Största problemet jag hade var att hitta en lösning hur man får så att man t
 - As I rebuild the program, I reworked quite a lot of stuff that just is better design I feel. Like using a dictionary instead of lists for the alarms. Also removed the alarm class as I didn't feel like I needed it. 
 - La till Dynamic logging med datum, skapas en ny logg-fil vid varje tillfälle.
 - Behövde gör en ny logger_config.py fil för jag fick problem att jag importerar filer lite för konstigt. Jag får bara importera saker till main.py inte till andra delar av programmet.
+- La till king of the hill logik på sista VG kravet, för att hitta det närmaste alarmet till aktiva datan. Kanske inte det snyggaste, men det fungerar. 
