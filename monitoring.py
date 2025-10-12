@@ -99,6 +99,16 @@ def monitoring_mode():
                         if alarm_warning["threshold"] <= system.cpu_usage:
                             print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
                             logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "Memory-alarm":
+                        if alarm_warning["threshold"] <= system.memory_percent:
+                            print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                for alarm_warning in alarm.sort_alarms():
+                    if alarm_warning["type"] == "Storage-alarm":
+                        if alarm_warning["threshold"] <= system.storage_percent:
+                            print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {alarm_warning["threshold"]}%***")
+                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
 
                 utils.wait_for_any_key_or_timeout(5)
                 

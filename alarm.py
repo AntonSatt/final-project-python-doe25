@@ -6,6 +6,12 @@ and listing the current alarms.
 import utils
 from main import logging
 
+ALARM_SORT_ORDER = {
+    "CPU-alarm": 1,
+    "Memory-alarm": 2,
+    "Storage-alarm": 3
+}
+
 # Filled list for testing, removed when pushed to production.
 user_alarms = [
     {"type": "CPU-alarm", "threshold": 2},
@@ -16,14 +22,61 @@ user_alarms = [
     {"type": "Storage-alarm", "threshold": 50},
 ]
 
+def remove_alarm():
+
+    while True:
+        sorted_list = sort_alarms()
+
+        if not sorted_list:
+            print("No alarms to remove.")
+            utils.timer_short()
+            return
+        
+        show_alarms()
+        user_input = input(f"Enter the number of the alarm to remove (1-{len(sorted_list)}):")
+
+        try:
+            selection_number = int(user_input)
+
+            if 1 <= selection_number <= len(sorted_list):
+                index_to_remove = selection_number - 1
+                alarm_to_remove = sorted_list[index_to_remove]
+                user_alarms.remove(alarm_to_remove)
+                logging.warning(f"Removed alarm: {alarm_to_remove['type']} at {alarm_to_remove['threshold']}%")
+                print(f"Alarm {selection_number} ({alarm_to_remove['type']} {alarm_to_remove['threshold']}%) removed.")
+                utils.timer_short() 
+                break 
+            else:
+                print(f"Invalid choice. Selection must be between 1 and {len(sorted_list)}.")
+                utils.timer_short()
+
+        except ValueError:
+            print("Invalid input. Please enter a valid number")
+            utils.timer_short()
+
+
+
+
 def create_alarm(type_of_alarm):
-    threshold = int(input("Please put in number: "))
-    new_alarm = {
-        "type": type_of_alarm,
-        "threshold": threshold
-        }
-    user_alarms.append(new_alarm)
-    logging.info(f"Added {type_of_alarm} {threshold}%")
+    # Prompts the user for threshold and adds a new alarm to the list.
+    while True:
+        try:
+            threshold = int(input("Type a number from 0-100: "))
+            if not 0 <= threshold <= 100:
+                print("Please enter a number between 0 and 100.")
+                utils.timer_short()
+                continue
+            new_alarm = {
+                "type": type_of_alarm,
+                "threshold": threshold
+                }
+            user_alarms.append(new_alarm)
+            logging.info(f"Added {type_of_alarm} {threshold}%")
+            print(f"Added {type_of_alarm} {threshold}%")
+            utils.timer_short()
+            return
+        except ValueError:
+            print("Invalid input, please enter a valid number between 0-100.")
 
 def alarm_menu():
     utils.clear_console()
@@ -46,7 +99,7 @@ def alarm_start():
         elif user_choice== '3':
             create_alarm("Storage-alarm")
         elif user_choice == '4':
-            pass
+            remove_alarm()
         elif user_choice == '5':
             print("Returning to main menu.")
             utils.timer_short()
@@ -57,12 +110,18 @@ def alarm_start():
             continue
 
 def sort_alarms():
-    sorted_alarms = sorted(user_alarms, key=lambda alarm: alarm["type"])
+    sorted_alarms = sorted(user_alarms, key=lambda alarm: ALARM_SORT_ORDER.get(alarm["type"], 4))
     return sorted_alarms
 
 def show_alarms():
     utils.clear_console()
-    for index, alarm in enumerate(sort_alarms()):
+    sorted_list = sort_alarms()
+
+    if not sorted_list:
+        print("No alarms currently.")
+        return
+
+    for index, alarm in enumerate(sorted_list):
         user_number = index + 1
 
         alarm_type = alarm["type"]
@@ -70,4 +129,5 @@ def show_alarms():
 
         print(f"{user_number}. {alarm_type} {alarm_threshold}%")
         
-    utils.press_any_key()
+    
+

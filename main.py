@@ -32,6 +32,7 @@ def main():
             alarm.alarm_start()
         elif user_choice == '4':
             alarm.show_alarms()
+            utils.press_any_key()
         elif user_choice == '5':
             monitoring.monitoring_mode()
         elif user_choice == '6':
