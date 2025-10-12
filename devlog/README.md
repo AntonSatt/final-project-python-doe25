@@ -42,7 +42,7 @@ Största problemet jag hade var att hitta en lösning hur man får så att man t
 
 ### 12th of October 2025
 - Did a rework of the whole program, mostly because I wanted to get print() and logging functions out of the classes. Because I didn't know that was bad practice. 
-
 - Also removed threading. 
-
 - As I rebuild the program, I reworked quite a lot of stuff that just is better design I feel. Like using a dictionary instead of lists for the alarms. Also removed the alarm class as I didn't feel like I needed it. 
+- La till Dynamic logging med datum, skapas en ny logg-fil vid varje tillfälle.
+- Behövde gör en ny logger_config.py fil för jag fick problem att jag importerar filer lite för konstigt. Jag får bara importera saker till main.py inte till andra delar av programmet.
