@@ -2,15 +2,12 @@
 This is a monitoring program for CPU, Memory and Storage data.
 It also features alarms and a monitoring mode.
 '''
-import logging
-import datetime
 import sys
 import utils
 import monitoring
 import alarm
-
-
-logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
+import logger_config
+import logging
 
 def starting_menu():
     utils.clear_console()
@@ -22,6 +19,7 @@ def starting_menu():
           "6 - Quit the program")
 
 def main():
+    logger_config.setup_logging()
     logging.info("Booting start-menu!")
     alarm.load_alarms()
     starting_menu_user_input()
