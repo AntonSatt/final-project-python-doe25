@@ -3,7 +3,7 @@ Monitoring program that keeps track of cpu, memory and storage data.
 '''
 import utils
 import psutil
-from main import logging
+import logging
 import time
 import alarm
 
@@ -55,7 +55,7 @@ class Monitoring:
         self.storage_total_in_GB = storage_total_value / GB_FACTOR
 
     
-system = Monitoring() 
+system = Monitoring()
 
 def start_monitoring():
     
