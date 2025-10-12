@@ -8,6 +8,9 @@ import utils
 import monitoring
 import alarm
 
+
+logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
+
 def starting_menu():
     utils.clear_console()
     print("1 - Start monitoring\n"
@@ -18,9 +21,10 @@ def starting_menu():
           "6 - Quit the program")
 
 def main():
-    logging.info("Starting the program.") # Logging the start
+    logging.info("Booting start-menu!")
     alarm.load_alarms()
     starting_menu_user_input()
+    
 
 def starting_menu_user_input():
     while True:
