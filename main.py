@@ -8,19 +8,6 @@ import utils
 import monitoring
 import alarm
 
-# Lägg till "Docstring"
-
-# Shows the starting menu
-def starting_menu():
-    utils.clear_console()
-    print(('Welcome to the program, pick an option below!\n'
-           '1 - to start monitoring your computers usage.\n'
-           '2 - to show a list what you are monitoring.\n'
-           '3 - to create an alarm.\n'
-           '4 - to show all current alarms.\n'
-           '5 - to start monitoring mode.\n'
-           '6 - to exit the program.\n'))
-
 def starting_menu():
     utils.clear_console()
     print("1 - Start monitoring\n"
@@ -32,6 +19,10 @@ def starting_menu():
 
 def main():
     logging.info("Starting the program.") # Logging the start
+    alarm.load_alarms()
+    starting_menu_user_input()
+
+def starting_menu_user_input():
     while True:
         starting_menu()
         user_choice = input("Pick from the list above: ")

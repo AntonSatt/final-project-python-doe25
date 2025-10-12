@@ -1,26 +1,18 @@
 [
     {
         "type": "CPU-alarm",
-        "threshold": 5
+        "threshold": 50
     },
     {
         "type": "CPU-alarm",
-        "threshold": 15
+        "threshold": 5
     },
     {
         "type": "Memory-alarm",
         "threshold": 10
     },
     {
-        "type": "Memory-alarm",
-        "threshold": 25
-    },
-    {
         "type": "Storage-alarm",
         "threshold": 10
-    },
-    {
-        "type": "Storage-alarm",
-        "threshold": 25
     }
 ]
