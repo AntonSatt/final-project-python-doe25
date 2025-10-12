@@ -47,7 +47,7 @@ def wait_for_any_key_or_timeout(seconds):
                 key = msvcrt.getch()  
                 print("\nReturning to menu!")
                 time.sleep(1)
-                main.main()
+                main.starting_menu_user_input()
             time.sleep(0.1)  
     
     else:  # Unix/Linux/macOS
@@ -65,6 +65,6 @@ def wait_for_any_key_or_timeout(seconds):
                     print("\nReturning to menu!")
                     time.sleep(1)
                     termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal
-                    main.main()
+                    main.starting_menu_user_input()
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal

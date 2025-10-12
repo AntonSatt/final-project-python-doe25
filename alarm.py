@@ -5,6 +5,10 @@ and listing the current alarms.
 '''
 import utils
 from main import logging
+import json
+import os
+
+ALARM_FILEPATH = "alarms.json"
 
 ALARM_SORT_ORDER = {
     "CPU-alarm": 1,
@@ -12,14 +16,28 @@ ALARM_SORT_ORDER = {
     "Storage-alarm": 3
 }
 
+def load_alarms():
+    # Loads alarms from the JSON file or says if no list exists. 
+    if os.path.exists(ALARM_FILEPATH):
+        with open(ALARM_FILEPATH, 'r') as f:
+            loaded_data = json.load(f)
+            user_alarms.extend(loaded_data)
+        print(f"Loading previously configured alarms...")
+        utils.timer_short()
+    else:
+        print(f"No {ALARM_FILEPATH} found. Startin with a new empty alarm list.")
+        utils.timer_short()
+            
+def save_alarms():
+    # Saves alarms to the JSON file.
+    with open(ALARM_FILEPATH, 'w') as f:
+        json.dump(user_alarms, f, indent=4)
+        logging.info("Alarms saved succesfully.")
+        
+
 # Filled list for testing, removed when pushed to production.
 user_alarms = [
-    {"type": "CPU-alarm", "threshold": 2},
-    {"type": "Memory-alarm", "threshold": 10},
-    {"type": "Storage-alarm", "threshold": 10},
-    {"type": "CPU-alarm", "threshold": 25},
-    {"type": "Memory-alarm", "threshold": 5},
-    {"type": "Storage-alarm", "threshold": 50},
+    
 ]
 
 def remove_alarm():
@@ -42,6 +60,7 @@ def remove_alarm():
                 index_to_remove = selection_number - 1
                 alarm_to_remove = sorted_list[index_to_remove]
                 user_alarms.remove(alarm_to_remove)
+                save_alarms() # <--- SAVE ALARMS
                 logging.warning(f"Removed alarm: {alarm_to_remove['type']} at {alarm_to_remove['threshold']}%")
                 print(f"Alarm {selection_number} ({alarm_to_remove['type']} {alarm_to_remove['threshold']}%) removed.")
                 utils.timer_short() 
@@ -71,6 +90,7 @@ def create_alarm(type_of_alarm):
                 "threshold": threshold
                 }
             user_alarms.append(new_alarm)
+            save_alarms() # <--- SAVE ALARMS
             logging.info(f"Added {type_of_alarm} {threshold}%")
             print(f"Added {type_of_alarm} {threshold}%")
             utils.timer_short()

@@ -8,6 +8,7 @@ import utils
 import monitoring
 import alarm
 
+
 logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 def starting_menu():
@@ -21,6 +22,11 @@ def starting_menu():
 
 def main():
     logging.info("Booting start-menu!")
+    alarm.load_alarms()
+    starting_menu_user_input()
+    
+
+def starting_menu_user_input():
     while True:
         starting_menu()
         user_choice = input("Pick from the list above: ")
@@ -42,7 +48,6 @@ def main():
         else:
             print("Not valid option.")
             utils.timer_short()
-
 
 if __name__ == "__main__":
     main()
