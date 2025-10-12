@@ -8,8 +8,18 @@ import utils
 import monitoring
 import alarm
 
+# Lägg till "Docstring"
 
-logging.basicConfig(filename='alarms.log', level=logging.INFO, format='%(asctime)s %(message)s')
+# Shows the starting menu
+def starting_menu():
+    utils.clear_console()
+    print(('Welcome to the program, pick an option below!\n'
+           '1 - to start monitoring your computers usage.\n'
+           '2 - to show a list what you are monitoring.\n'
+           '3 - to create an alarm.\n'
+           '4 - to show all current alarms.\n'
+           '5 - to start monitoring mode.\n'
+           '6 - to exit the program.\n'))
 
 def starting_menu():
     utils.clear_console()
@@ -21,12 +31,7 @@ def starting_menu():
           "6 - Quit the program")
 
 def main():
-    logging.info("Booting start-menu!")
-    alarm.load_alarms()
-    starting_menu_user_input()
-    
-
-def starting_menu_user_input():
+    logging.info("Starting the program.") # Logging the start
     while True:
         starting_menu()
         user_choice = input("Pick from the list above: ")
