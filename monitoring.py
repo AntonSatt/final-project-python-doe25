@@ -76,9 +76,9 @@ def show_monitoring_list():
         utils.timer_short()
         return
     utils.clear_console()
-    print(f"CPU-användning: {round(system.cpu_usage)}%\n"
-          f"Minnesanvändning: {system.memory_percent}% ({system.used_memory_in_GB:.1f} GB av {system.total_memory_in_GB:.1f} GB använt)\n"
-          f"Diskanvändning: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB av {round(system.storage_total_in_GB)} GB använt)") 
+    print(f"CPU-usage: {round(system.cpu_usage)}%\n"
+          f"Memory-usage: {system.memory_percent}% ({system.used_memory_in_GB:.1f} GB of {system.total_memory_in_GB:.1f} GB used)\n"
+          f"Storage-usage: {system.storage_percent}% ({round(system.storage_used_in_GB)} GB of {round(system.storage_total_in_GB)} GB used)") 
     utils.press_any_key()
     return
 
@@ -94,23 +94,58 @@ def monitoring_mode():
 
         for times in range(2): # Looping 2 times before going back to the start of while loop
             system.update_data()
+            all_alarms = alarm.user_alarms
+
+            '''
+            Finding the closest alarm to the current threshold
+            Kinda like King of the hill, replace when found a closer number to the current target
+            And you just repeat it for Memory and Storage after CPU
+            '''
+
+            # CPU
+            highest_cpu_alarm_found = None
+
+            for current_alarm in all_alarms:
+                if current_alarm["type"] == "CPU-alarm":
+                    if current_alarm["threshold"] <= system.cpu_usage:
+                        if highest_cpu_alarm_found == None:
+                            highest_cpu_alarm_found = current_alarm
+                        elif current_alarm["threshold"] > highest_cpu_alarm_found["threshold"]:
+                            highest_cpu_alarm_found = current_alarm
+
+            if highest_cpu_alarm_found is not None:
+                print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {highest_cpu_alarm_found['threshold']}%***")
+                logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {highest_cpu_alarm_found['threshold']}%***")
             
-            # Checks the lists of alarms if any is triggered by the current data
-            for alarm_warning in alarm.sort_alarms():
-                if alarm_warning["type"] == "CPU-alarm":
-                    if alarm_warning["threshold"] <= system.cpu_usage:
-                        print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-            for alarm_warning in alarm.sort_alarms():
-                if alarm_warning["type"] == "Memory-alarm":
-                    if alarm_warning["threshold"] <= system.memory_percent:
-                        print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning["threshold"]}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-            for alarm_warning in alarm.sort_alarms():
-                if alarm_warning["type"] == "Storage-alarm":
-                    if alarm_warning["threshold"] <= system.storage_percent:
-                        print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {alarm_warning["threshold"]}%***")
-                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+            # Memory
+            highest_memory_alarm_found = None
+
+            for current_alarm in all_alarms:
+                if current_alarm["type"] == "Memory-alarm":
+                    if current_alarm["threshold"] <= system.memory_percent:
+                        if highest_memory_alarm_found == None:
+                            highest_memory_alarm_found = current_alarm
+                        elif current_alarm["threshold"] > highest_memory_alarm_found["threshold"]:
+                            highest_memory_alarm_found = current_alarm
+
+            if highest_memory_alarm_found is not None:
+                print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {highest_memory_alarm_found['threshold']}%***")
+                logging.warning(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {highest_memory_alarm_found['threshold']}%***")
+
+            # Storage
+            highest_storage_alarm_found = None
+
+            for current_alarm in all_alarms:
+                if current_alarm["type"] == "Storage-alarm":
+                    if current_alarm["threshold"] <= system.storage_percent:
+                        if highest_storage_alarm_found == None:
+                            highest_storage_alarm_found = current_alarm
+                        elif current_alarm["threshold"] > highest_storage_alarm_found["threshold"]:
+                            highest_storage_alarm_found = current_alarm
+
+            if highest_storage_alarm_found is not None:
+                print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {highest_storage_alarm_found['threshold']}%***")
+                logging.warning(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {highest_storage_alarm_found['threshold']}%***")
 
             if utils.wait_for_any_key_or_timeout(5):
                 loop = False
