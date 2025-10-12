@@ -3,7 +3,7 @@ Monitoring program that keeps track of cpu, memory and storage data.
 '''
 import utils
 import psutil
-from main import logging
+import logging
 import time
 import alarm
 
@@ -55,7 +55,7 @@ class Monitoring:
         self.storage_total_in_GB = storage_total_value / GB_FACTOR
 
     
-system = Monitoring() 
+system = Monitoring()
 
 def start_monitoring():
     
@@ -84,31 +84,35 @@ def show_monitoring_list():
 
 def monitoring_mode():
      # Checking CPU alarms
-        logging.info("Monitoring mode activated.")
-        while True:
+    utils.clear_console()
+    logging.info("Monitoring mode activated.")
+    loop = True
+    while loop:
+        
+        print("Monitoring mode activated, press any key to go back to menu.")
+        time.sleep(1)
+
+        for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
+            system.update_data()
             
-            print("Monitoring mode activated, press any key to go back to menu.")
-            time.sleep(1)
+            # Checks the lists of alarms if any is triggered by the current data
+            for alarm_warning in alarm.sort_alarms():
+                if alarm_warning["type"] == "CPU-alarm":
+                    if alarm_warning["threshold"] <= system.cpu_usage:
+                        print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+            for alarm_warning in alarm.sort_alarms():
+                if alarm_warning["type"] == "Memory-alarm":
+                    if alarm_warning["threshold"] <= system.memory_percent:
+                        print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning["threshold"]}%***")
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
+            for alarm_warning in alarm.sort_alarms():
+                if alarm_warning["type"] == "Storage-alarm":
+                    if alarm_warning["threshold"] <= system.storage_percent:
+                        print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {alarm_warning["threshold"]}%***")
+                        logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
 
-            for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
-                system.update_data()
-                
-                # Checks the lists of alarms if any is triggered by the current data
-                for alarm_warning in alarm.sort_alarms():
-                    if alarm_warning["type"] == "CPU-alarm":
-                        if alarm_warning["threshold"] <= system.cpu_usage:
-                            print(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-                for alarm_warning in alarm.sort_alarms():
-                    if alarm_warning["type"] == "Memory-alarm":
-                        if alarm_warning["threshold"] <= system.memory_percent:
-                            print(f"***WARNING, ALARM ACTIVATED, MEMORY USAGE OVER {alarm_warning["threshold"]}%***")
-                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-                for alarm_warning in alarm.sort_alarms():
-                    if alarm_warning["type"] == "Storage-alarm":
-                        if alarm_warning["threshold"] <= system.storage_percent:
-                            print(f"***WARNING, ALARM ACTIVATED, STORAGE USAGE OVER {alarm_warning["threshold"]}%***")
-                            logging.warning(f"***WARNING, ALARM ACTIVATED, CPU USAGE OVER {alarm_warning["threshold"]}%***")
-
-                utils.wait_for_any_key_or_timeout(5)
+            if utils.wait_for_any_key_or_timeout(5):
+                loop = False
+                break
                 

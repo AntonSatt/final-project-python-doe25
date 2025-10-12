@@ -4,7 +4,7 @@ Features like adding alarms and removing alarms,
 and listing the current alarms.
 '''
 import utils
-from main import logging
+import logging
 import json
 import os
 

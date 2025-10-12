@@ -4,7 +4,6 @@ Small functions that are easlily called from here to do something.
 import os
 import time
 import sys
-import main
 
 def clear_console():
     if os.name == 'nt':
@@ -47,7 +46,7 @@ def wait_for_any_key_or_timeout(seconds):
                 key = msvcrt.getch()  
                 print("\nReturning to menu!")
                 time.sleep(1)
-                main.starting_menu_user_input()
+                return True
             time.sleep(0.1)  
     
     else:  # Unix/Linux/macOS
@@ -65,6 +64,6 @@ def wait_for_any_key_or_timeout(seconds):
                     print("\nReturning to menu!")
                     time.sleep(1)
                     termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal
-                    main.starting_menu_user_input()
+                    return True
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore terminal
