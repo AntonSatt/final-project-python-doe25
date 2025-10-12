@@ -4,7 +4,6 @@ import logging
 from datetime import datetime
 
 def setup_logging():
-    """Konfigurerar loggningen med ett dynamiskt filnamn."""
     log_filename = f"monitoring_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
     logging.basicConfig(
         filename=log_filename,

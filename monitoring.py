@@ -92,7 +92,7 @@ def monitoring_mode():
         print("Monitoring mode activated, press any key to go back to menu.")
         time.sleep(1)
 
-        for times in range(2): # We go over the alarm checks 2 times before printing out monitoring mode
+        for times in range(2): # Looping 2 times before going back to the start of while loop
             system.update_data()
             
             # Checks the lists of alarms if any is triggered by the current data
