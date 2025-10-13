@@ -2,7 +2,6 @@
 This is a monitoring program for CPU, Memory and Storage data.
 It also features alarms and a monitoring mode.
 '''
-import sys
 import utils
 import monitoring
 import alarm
@@ -44,7 +43,7 @@ def starting_menu_user_input():
             case '6':
                 utils.clear_console()
                 logging.info("Closing the program")
-                sys.exit()
+                break
             case _:
                 print("Not valid option.")
                 utils.timer_short()
