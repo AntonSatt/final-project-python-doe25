@@ -10,6 +10,9 @@ import os
 
 ALARM_FILEPATH = "alarms.json"
 
+# Empty alarm dict, fills from stored json at start.
+user_alarms = []
+
 ALARM_SORT_ORDER = {
     "CPU-alarm": 1,
     "Memory-alarm": 2,
@@ -35,10 +38,7 @@ def save_alarms():
         logging.info("Alarms saved succesfully.")
         
 
-# Filled list for testing, removed when pushed to production.
-user_alarms = [
-    
-]
+
 
 def remove_alarm():
 
