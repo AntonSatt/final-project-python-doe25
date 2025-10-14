@@ -1,10 +1,10 @@
 # Systemutveckling i Python – Individuell slutuppgift
 
 ## Studentinformation
-**Namn:**  
-**Klass:**  
-**Datum:**  
-**GitHub-länk till projektet:**  
+**Namn: Anton Sätterkvist**  
+**Klass: DOE25**  
+**Datum: 14 Oktober 2025**  
+**GitHub-länk till projektet: https://github.com/AntonSatt/final-project-python-doe25**  
 
 ---
 
