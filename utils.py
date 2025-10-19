@@ -19,9 +19,8 @@ def timer_short():
 def press_any_key(prompt='Press any key to continue...'):
     if os.name == 'nt': # Windows
         import msvcrt
-        def wait():
-            print("Press any key to continue")
-            msvcrt.getch()
+        print(prompt, end="", flush=True)
+        msvcrt.getch()
     else: # Unix (Linux & Mac)
         import tty
         import termios
