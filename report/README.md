@@ -18,7 +18,7 @@ Syftet är att få en bra förståelse hur Python programmering fungerar och lä
 ## 2. Planering och design
 Min planering kunde varit bättre och ska bli bättre i framtiden. Jag gick rätt in på uppgiften och såg först att jag behövde 5 olika val i en menu vilket jag gick i genom en efter en. 
 
-Det fick jag äta upp senare när jag insåg att jag behövde flera av samma larm så fick göra om min Alarm fil lite med listor istället. 
+Det fick jag äta upp senare när jag insåg att jag behövde flera av samma larm så fick göra om min Alarm fil lite med listor istället (som tillslut blev en lista av dictionaries).
 
 Hur jag ska göra i framtiden är att gå igenom uppgiften och skriva upp möjliga funktioner jag kan behöva och sedan tänka hur jag ska dela upp de i olika filer. Det gör att man får en bra överblick över projektet.
 
@@ -38,7 +38,7 @@ Programmet är uppdelat i flera olika filer.
 
 `monitoring.py` - Monitoringen klassen är en central bit av mitt program för där sparar vi systemdata varje gång vi uppdaterar från psutil (CPU, Minne, Lagrning). Jag valde att göra en klass här för att kunna lagra värden och använda de flera gånger över i andra funktioner och metoder. 
 
-`alarm.py` är även och en central del där vi laddar in larm från tidigare körning av kod och vi sparar larmen i en dictionary för att enkelt kunna senare spara in ny larm och ta bort larm vi inte vill ha. Först använde jag mig en lista för larm, då blev det 3 olika larm-listor vilket gjorde det lite krångligt när jag skulle ta bort larm för VG-kraven. Så bättre att köra med en dictonary för larmen. 
+`alarm.py` är även och en central del där vi laddar in larm från tidigare körning av kod och vi sparar larmen i en lista av dictionaries för att enkelt kunna senare spara in ny larm och ta bort larm vi inte vill ha. Först använde jag mig en lista för larm, då blev det 3 olika larm-listor vilket gjorde det lite krångligt när jag skulle ta bort larm för VG-kraven. Så bättre att köra med en lista av dictionaries för larmen. 
 
 ---
 
@@ -68,7 +68,7 @@ Skulle vara bra om jag hade mer testning, eller kanske automatiska tester som k�
 
 ## 7. Resultat
 
-Jag gillar hur mina larm sparas i en dictionary istället för en lista för varje larm, känns mycket mer "clean". Förut behövde jag sätta ihop en temporär lista där jag la in alla larm för att sedan ta bort det larm man ville ta bort. 
+Jag gillar hur mina larm sparas i en lista av dictionaries istället för en lista för varje larm, känns mycket mer "clean". Förut behövde jag sätta ihop en temporär lista där jag la in alla larm för att sedan ta bort det larm man ville ta bort. 
 
 ---
 
