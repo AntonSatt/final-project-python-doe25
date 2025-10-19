@@ -9,113 +9,92 @@
 ---
 
 ## 1. Inledning
-Beskriv kortfattat vad uppgiften gick ut på.
+I den här uppgiften har ska vi göra ett övervakningsprogram i Python som samlar in den lokala datorns systeminformation som CPU, Minne och Lagring. Det ska kunna övervaka och larma om värden överskrider värden som vi bestämmt i larmen. 
 
-**Exempel:**
-I denna uppgift har jag utvecklat en övervakningsapplikation i Python som samlar in systeminformation och visar den i terminalen. Programmet kan starta övervakning, visa status, skapa och visa larm, samt hantera övervakningsläge.
-
-Syftet är att visa hur man kan använda Python för systemutveckling inom DevOps, med fokus på struktur, funktioner och objektorientering.
+Syftet är att få en bra förståelse hur Python programmering fungerar och lära sig baskunskaparna vi kommer behöver att automatisera projekt senare i vår DevOps utbildning. 
 
 ---
 
 ## 2. Planering och design
-- Hur planerade du arbetet?
-- Hur började du?
-- Hur delade du upp uppgiften i delar (funktioner eller klasser)?
-- Skissade du meny/flödesschema?
+Min planering kunde varit bättre och ska bli bättre i framtiden. Jag gick rätt in på uppgiften och såg först att jag behövde 5 olika val i en menu vilket jag gick i genom en efter en. 
 
-**Exempel:**
-Jag började med att läsa igenom kravspecifikationen och dela upp den i fem huvuddelar: starta övervakning, visa status, skapa larm, visa larm och starta övervakningsläge.  
-Jag ritade sedan ett enkelt flöde över hur användaren navigerar i menyn och vilka funktioner som behövs.
+Det fick jag äta upp senare när jag insåg att jag behövde flera av samma larm så fick göra om min Alarm fil lite med listor istället. 
+
+Hur jag ska göra i framtiden är att gå igenom uppgiften och skriva upp möjliga funktioner jag kan behöva och sedan tänka hur jag ska dela upp de i olika filer. Det gör att man får en bra överblick över projektet.
 
 ---
 
 ## 3. Programstruktur
-Beskriv hur din kod är uppbyggd:
-- Vilka filer består programmet av?
-- Hur är klasser och funktioner organiserade?
-- Hur kommunicerar de med varandra?
-
-**Exempel:**
-Programmet är uppdelat i flera filer.  
-`main.py` innehåller huvudmenyn och startpunkten.  
-`Monitor` ansvarar för att läsa systeminformation.  
-`Alarm` hanterar larm, och `AlarmManager` håller reda på alla aktiva larm.
+Programmet är uppdelat i flera olika filer.     
+`main.py` innehåller huvudmenyn för programmet och är startpunkten.     
+`monitoring.py` har hand om insamlandet av systemdata (CPU, minne, lagring), även övervakningsläge och visning av systemdata.   
+`alarm.py` hanterar larm, lagringen av larm, visning av larm.   
+`utils.py` är standard funktioner som återkommer ofta i de andra filerna (t.ex pauser,  rensar terminalen.)     
+`logger_config.py` hanterar loggningen, då jag fick problem när jag la den i main.py med import. Bättre att ha den i en separat fil. 
 
 ---
 
 ## 4. Viktiga funktioner eller klasser
-Välj 2–3 centrala delar av din kod och beskriv dem mer i detalj:
-- Vad gör de?
-- Varför implementerade du dem så?
 
-**Exempel:**
-`Monitor.get_system_status()` använder psutil för att hämta CPU-, minnes- och diskanvändning.  
-Jag valde att använda en klass för att kunna återanvända samma kod både i menyn och i övervakningsläget.
+`monitoring.py` - Monitoringen klassen är en central bit av mitt program för där sparar vi systemdata varje gång vi uppdaterar från psutil (CPU, Minne, Lagrning). Jag valde att göra en klass här för att kunna lagra värden och använda de flera gånger över i andra funktioner och metoder. 
+
+`alarm.py` är även och en central del där vi laddar in larm från tidigare körning av kod och vi sparar larmen i en dictionary för att enkelt kunna senare spara in ny larm och ta bort larm vi inte vill ha. Först använde jag mig en lista för larm, då blev det 3 olika larm-listor vilket gjorde det lite krångligt när jag skulle ta bort larm för VG-kraven. Så bättre att köra med en dictonary för larmen. 
 
 ---
 
 ## 5. Bibliotek och verktyg
-Lista vilka bibliotek du använde och till vad.
+Lista vilka bibliotek jag använde och till vad.
 
-**Exempel:**
-- `psutil` – läsa systemresurser  
+- `psutil` – läsa systemdata
 - `os` – filhantering  
 - `json` – spara/läsa larm  
-- `time` – loopar i övervakningsläge  
-- `logging` – loggning (VG)
+- `time` – för att kunna göra pauser i programmet så man hinner läsa i terminalen vad som händer. 
+- `logging` – loggning för programmet
+- `datetime` – Datum för loggning
+- `sys` – Systemfunktioner
 
-Beskriv även hur du versionshanterade projektet med Git och GitHub.
+Projekten har versionshaterats via Git och Github under hela projektets uppbyggnad. Jag har främst kört in direkt i main, men för större ändring t.ex. när jag behövde bygga om stora delar av programmet för att få ut print() i klasser så körde jag med branches för att enklare ha kontrol över projektet. 
 
 ---
 
 ## 6. Testning och felsökning
-- Hur testade du programmet?
-- Testade du olika användarinmatningar?
-- Hanterade du buggar/fel?
 
-**Exempel:**
-Jag testade alla menyval manuellt genom att köra programmet i terminalen.  
-Jag använde `try/except` för att undvika krascher vid felaktig inmatning.  
-Jag lade till `print()` i början för att förstå flödet innan jag bytte till loggning.
+Jag har testat mitt program manuellt genom att köra det i terminalen. 
+Om det är något jag inte förstått hur jag ska göra det så brukar jag skriva in lite print() i funktionerna under tiden jag bygger dom.      
+Jag använder try/except där det behövs.     
+Skulle vara bra om jag hade mer testning, eller kanske automatiska tester som kör på varje funktion för att se till att de alla klara av olika sorter av inmatning. 
 
 ---
 
 ## 7. Resultat
-- Vad fungerar bra?
-- Finns det delar du är extra nöjd med?
 
-**Exempel:**
-Jag är nöjd med hur programmet hanterar flera larm samtidigt och sorterar dem korrekt.  
-Loggningen fungerar som tänkt och skapar en ny loggfil vid varje start.
+Jag gillar hur mina larm sparas i en dictionary istället för en lista för varje larm, känns mycket mer "clean". Förut behövde jag sätta ihop en temporär lista där jag la in alla larm för att sedan ta bort det larm man ville ta bort. 
 
 ---
 
 ## 8. Reflektion och lärdomar
-Vad har du lärt dig under projektet?
-- Om Python/programmering
-- Om att strukturera kod
-- Om testning, Git och arbetsflöden
 
-**Exempel:**
-Jag har lärt mig hur klasser gör program mer strukturerade och lättare att underhålla.  
-Jag har förstått vikten av att planera innan man börjar koda och att använda Git ofta.
+- Att klasser är väldigt bra för att strukturera kod och enkelt producera nya objekt snabbt.    
+- Jag har lärt mig att det är VÄLDIGT smart att planera hur du ska bygga projektet ibörjan även om det tar lite längre tid först.   
+- Git och GitHub är superbra, väldigt enkelt att synca mellan laptop:en och datorn hemma.    
+- Python är väldigt lättläst, jag har mest gjort C innan.   
 
 ---
 
 ## 9. Möjliga förbättringar och vidareutveckling
-Om du hade mer tid – vad skulle du vilja lägga till eller förbättra?
 
-**Exempel:**
-Jag skulle vilja lägga till e-postnotifiering vid aktiverat larm och ett GUI med tkinter.  
-Jag skulle också vilja skriva enhetstester för vissa funktioner.
+- Formateringen av programmet i terminalen, färger osv.     
+- Förbättring av kod och funktioner på ett smartare sätt.   
+- Threading för att ha att koden uppdateras i bakgrunden (även om det inte riktigt behövs, men skulle vara coolt och man kan göra lite mer coola saker med det.)    
+- Mail-funktion     
+- Tester av min kod, men pytest eller liknande.     
 
 ---
 
 ## 10. Sammanfattning
-En kort summering av projektet (2–4 meningar):
 
-Projektet visar hur man kan använda Python för att skapa en enkel men effektiv övervakningsapplikation.  
-Jag har tillämpat objektorientering, filhantering, felhantering och versionshantering i praktiken.
+Projektet visar hur man enkelt kan använda sig att Python för att skapa viktiga övervakningsprogram för att hålla koll på sin hårdvara. 
+
+Jag har lärt mig om filhantering, Python-syntax, versionshantering, klasser och funktioner i riktiga projekt. Kul kurs! 
 
 ---
