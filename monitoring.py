@@ -59,6 +59,7 @@ system = Monitor()
 
 def start_monitoring():
     
+    # Check if monitoring is already running in method
     if system.check_if_monitoring_is_running() == True:
         print("Monitoring already running.")
         utils.timer_short()
@@ -70,7 +71,7 @@ def start_monitoring():
 
 def show_monitoring_list():
     system.update_data()
-     # Get the current data as a string for printing in main.py
+     # Get the current monitoring data
     if not system.monitoring_running:
         print("Nothing is being monitored currently.") 
         utils.timer_short()
@@ -107,6 +108,7 @@ def monitoring_mode():
 
             for current_alarm in all_alarms:
                 if current_alarm["type"] == "CPU-alarm":
+                    # Check if the threshold is met
                     if current_alarm["threshold"] <= system.cpu_usage:
                         if highest_cpu_alarm_found == None:
                             highest_cpu_alarm_found = current_alarm

@@ -56,7 +56,9 @@ def remove_alarm():
         try:
             selection_number = int(user_input)
 
+            # Checks if the selection number is valid
             if 1 <= selection_number <= len(sorted_list):
+                # Get the index to remove from the user_alarms list
                 index_to_remove = selection_number - 1
                 alarm_to_remove = sorted_list[index_to_remove]
                 user_alarms.remove(alarm_to_remove)
