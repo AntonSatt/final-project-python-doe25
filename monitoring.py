@@ -7,7 +7,7 @@ import logging
 import time
 import alarm
 
-class Monitoring:
+class Monitor:
     def __init__(self):
         self.cpu_usage = 0
         self.memory_percent = 0
@@ -55,7 +55,7 @@ class Monitoring:
         self.storage_total_in_GB = storage_total_value / GB_FACTOR
 
     
-system = Monitoring()
+system = Monitor()
 
 def start_monitoring():
     
