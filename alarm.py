@@ -61,7 +61,7 @@ def remove_alarm():
                 alarm_to_remove = sorted_list[index_to_remove]
                 user_alarms.remove(alarm_to_remove)
                 save_alarms() # <--- SAVE ALARMS
-                logging.warning(f"Removed alarm: {alarm_to_remove['type']} at {alarm_to_remove['threshold']}%")
+                logging.info(f"Removed alarm: {alarm_to_remove['type']} at {alarm_to_remove['threshold']}%")
                 print(f"Alarm {selection_number} ({alarm_to_remove['type']} {alarm_to_remove['threshold']}%) removed.")
                 utils.timer_short() 
                 break 

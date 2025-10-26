@@ -149,5 +149,6 @@ def monitoring_mode():
 
             if utils.wait_for_any_key_or_timeout(5):
                 loop = False
+                logging.info("Monitoring mode deactivated.")
                 break
                 
